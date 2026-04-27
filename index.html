@@ -30,6 +30,25 @@
       --week4: #0c0c0a;
       --header-h: 64px;
     }
+    [data-theme="light"] {
+      --bg: #f8f9fc;
+      --surface: #ffffff;
+      --surface2: #f0f2f8;
+      --border: #d1d5db;
+      --border-strong: #b0b8d0;
+      --accent: #2563eb;
+      --accent2: #6366f1;
+      --green: #16a34a;
+      --green-light: rgba(22,163,74,0.12);
+      --yellow: #ca8a04;
+      --red: #dc2626;
+      --text: #1e293b;
+      --muted: #64748b;
+      --week1: #f0f2f8;
+      --week2: #e8ebf5;
+      --week3: #f0f2f8;
+      --week4: #f5f7fb;
+    }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -46,7 +65,7 @@
       top: 0;
       z-index: 100;
       height: var(--header-h);
-      background: #1a1d2e;
+      background: var(--surface);
       backdrop-filter: none;
       border-bottom: 2px solid var(--border);
       box-shadow: 0 2px 12px rgba(37,99,235,0.2);
@@ -136,6 +155,32 @@
     }
     .btn-ghost:hover { background: rgba(234,179,8,.25); }
 
+    /* Theme toggle */
+    .theme-toggle {
+      width: 44px; height: 24px;
+      border-radius: 12px;
+      border: 2px solid var(--border);
+      background: var(--surface2);
+      cursor: pointer;
+      position: relative;
+      transition: all .2s;
+      flex-shrink: 0;
+    }
+    .theme-toggle::after {
+      content: '';
+      width: 16px; height: 16px;
+      border-radius: 50%;
+      background: var(--yellow);
+      position: absolute;
+      top: 2px; left: 2px;
+      transition: left .2s, background .2s;
+      box-shadow: 0 1px 4px rgba(0,0,0,.3);
+    }
+    [data-theme="light"] .theme-toggle::after {
+      left: 22px;
+      background: var(--accent);
+    }
+
     /* ── STATS ROW ── */
     .stats-bar {
       display: flex;
@@ -187,7 +232,7 @@
       justify-content: space-between;
       padding: 16px 20px;
       border-bottom: 2px solid var(--border);
-      background: linear-gradient(90deg, #1a1d2e, #1e1a2e);
+      background: linear-gradient(90deg, var(--surface), var(--surface2));
     }
     .panel-title {
       font-family: 'Outfit', sans-serif;
@@ -229,7 +274,7 @@
       text-transform: uppercase; letter-spacing: .9px;
       color: var(--accent);
       padding: 10px 6px;
-      background: #1a1d2e;
+      background: var(--surface);
       border-bottom: 2px solid var(--border);
       position: sticky;
       top: var(--header-h);
@@ -242,7 +287,7 @@
     }
     .weeks-row {
       display: flex;
-      background: #1a1d2e;
+      background: var(--surface);
       border-bottom: 2px solid var(--border);
     }
     .week-block {
@@ -287,7 +332,7 @@
       border-bottom: 1px solid var(--border);
       transition: background .12s;
     }
-    .habit-row:hover > * { background: #252a3d; }
+    .habit-row:hover > * { background: var(--surface2); }
 
     .habit-name-cell {
       display: flex; align-items: center;
@@ -366,9 +411,9 @@
       cursor: pointer;
       transition: all .15s;
       position: relative;
-      background: #000;
+      background: var(--bg);
     }
-    .check-box:hover { border-color: var(--yellow); background: #1a1a1a; }
+    .check-box:hover { border-color: var(--yellow); background: var(--surface2); }
     .check-box.checked {
       background: linear-gradient(135deg, #eab308, #facc15);
       border-color: #eab308;
@@ -391,12 +436,12 @@
       color: var(--red);
       font-weight: 700;
     }
-    .check-box.future { opacity: .4; pointer-events: none; background: #252a3d; }
+    .check-box.future { opacity: .4; pointer-events: none; background: var(--surface2); }
 
     /* Progress bar per habit */
     .habit-progress {
       height: 4px;
-      background: #2e3348;
+      background: var(--border);
       margin: 0;
     }
     .habit-progress-fill {
@@ -408,7 +453,7 @@
 
     /* Summary row */
     .summary-row {
-      background: #1a1d2e;
+      background: var(--surface);
       border-top: 2px solid var(--border-strong);
     }
     .summary-label {
@@ -448,7 +493,7 @@
       gap: 4px;
       border-bottom: 2px solid var(--border);
       overflow-x: auto;
-      background: #1a1d2e;
+      background: var(--surface);
     }
     .month-tab {
       padding: 10px 16px;
@@ -467,20 +512,20 @@
     .modal-overlay {
       display: none;
       position: fixed; inset: 0;
-      background: rgba(30,35,64,.45);
+      background: rgba(0,0,0,.4);
       backdrop-filter: blur(6px);
       z-index: 200;
       place-items: center;
     }
     .modal-overlay.open { display: grid; }
     .modal {
-      background: #ffffff;
+      background: var(--surface);
       border: 2px solid var(--border-strong);
       border-radius: 18px;
       padding: 28px;
       width: 400px;
       max-width: 95vw;
-      box-shadow: 0 24px 64px rgba(79,70,229,0.18);
+      box-shadow: 0 24px 64px rgba(0,0,0,.18);
       animation: modalIn .2s ease;
     }
     @keyframes modalIn { from { transform: translateY(20px); opacity: 0; } to { transform: none; opacity: 1; } }
@@ -489,7 +534,7 @@
     .form-label { font-size: 12px; font-weight: 600; color: var(--muted); margin-bottom: 6px; display: block; }
     .form-input {
       width: 100%;
-      background: #f8f9fc;
+      background: var(--surface2);
       border: 2px solid var(--border);
       border-radius: 10px;
       padding: 10px 14px;
@@ -499,7 +544,7 @@
       outline: none;
       transition: border-color .15s;
     }
-    .form-input:focus { border-color: var(--accent); background: #fff; }
+    .form-input:focus { border-color: var(--accent); background: var(--surface); }
     .emoji-picker {
       display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px;
     }
@@ -509,24 +554,24 @@
       border-radius: 8px;
       font-size: 18px;
       cursor: pointer;
-      background: #f4f6fb;
+      background: var(--surface2);
       border: 2px solid var(--border);
       transition: all .15s;
     }
-    .emoji-opt:hover, .emoji-opt.sel { border-color: var(--accent); background: #252a3d; }
+    .emoji-opt:hover, .emoji-opt.sel { border-color: var(--accent); background: var(--surface); }
     .modal-actions { display: flex; gap: 10px; justify-content: flex-end; margin-top: 20px; }
 
     /* Toast */
     .toast {
       position: fixed; bottom: 28px; right: 28px;
-      background: #ffffff;
+      background: var(--surface);
       border: 2px solid var(--border);
       border-left: 5px solid var(--green);
       border-radius: 12px;
       padding: 12px 18px;
       font-size: 13px; font-weight: 600;
       color: var(--text);
-      box-shadow: 0 8px 32px rgba(79,70,229,0.15);
+      box-shadow: 0 8px 32px rgba(0,0,0,.15);
       transform: translateX(120%);
       transition: transform .3s cubic-bezier(.34,1.56,.64,1);
       z-index: 300;
@@ -535,28 +580,28 @@
 
     /* Scrollbar */
     ::-webkit-scrollbar { width: 6px; height: 6px; }
-    ::-webkit-scrollbar-track { background: #1a1d2e; }
-    ::-webkit-scrollbar-thumb { background: #3d4460; border-radius: 4px; }
-    ::-webkit-scrollbar-thumb:hover { background: #6366f1; }
+    ::-webkit-scrollbar-track { background: var(--surface); }
+    ::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
 
     /* PDF export loading overlay */
     .pdf-overlay {
       display: none;
       position: fixed; inset: 0;
-      background: rgba(30,35,64,.5);
+      background: rgba(0,0,0,.4);
       backdrop-filter: blur(8px);
       z-index: 500;
       place-items: center;
     }
     .pdf-overlay.active { display: grid; }
     .pdf-spinner {
-      background: #fff;
-      border: 2px solid var(--border);
+      background: var(--surface);
+      border: 2px solid var(--border-strong);
       border-radius: 18px;
       padding: 36px 48px;
       text-align: center;
       display: flex; flex-direction: column; align-items: center; gap: 18px;
-      box-shadow: 0 16px 48px rgba(79,70,229,0.2);
+      box-shadow: 0 16px 48px rgba(0,0,0,.15);
     }
     .pdf-spinner .spin {
       width: 52px; height: 52px;
@@ -584,7 +629,7 @@
       display: none !important;
     }
     body.pdf-capturing {
-      background: #0f1117 !important;
+      background: var(--bg) !important;
     }
   </style>
 </head>
@@ -597,6 +642,7 @@
     <div class="brand-text">Skills<span>vault</span> Habit Tracker</div>
   </div>
   <div class="header-controls">
+    <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Toggle theme"></button>
     <div class="month-selector">
       <span style="font-size:13px">📅</span>
       <select id="monthSelect"></select>
@@ -1127,7 +1173,22 @@ document.getElementById('addModal').addEventListener('click', e => {
   if (e.target===e.currentTarget) closeModal();
 });
 
+// ─── THEME ────────────────────────────────────────────────────────────────────
+function toggleTheme() {
+  const html = document.documentElement;
+  const current = html.getAttribute('data-theme');
+  const next = current === 'light' ? 'dark' : 'light';
+  html.setAttribute('data-theme', next);
+  localStorage.setItem('sv_theme', next);
+}
+
+function initTheme() {
+  const saved = localStorage.getItem('sv_theme');
+  if (saved) document.documentElement.setAttribute('data-theme', saved);
+}
+
 // ─── BOOT ────────────────────────────────────────────────────────────────────
+initTheme();
 render();
 </script>
 </body>
